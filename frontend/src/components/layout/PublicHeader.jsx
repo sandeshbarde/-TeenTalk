@@ -1,0 +1,162 @@
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ShieldCheck, PhoneCall, Menu, X, ArrowRight, User } from 'lucide-react';
+import { useAuth } from '../../hooks/useAuth';
+import { Button } from '../common/Button';
+
+export const PublicHeader = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user, isAuthenticated, logout, getDashboardRoute } = useAuth();
+  const navigate = useNavigate();
+
+  return (
+    <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200/80 transition-all">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 sm:h-20">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-teal-600 to-teal-400 flex items-center justify-center text-white shadow-md shadow-teal-500/20 group-hover:scale-105 transition-transform">
+              <ShieldCheck className="w-6 h-6" />
+            </div>
+            <div>
+              <span className="text-xl font-extrabold text-slate-900 tracking-tight flex items-center gap-1">
+                Teen<span className="text-brand-600">Talk</span>
+              </span>
+              <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest block -mt-1">
+                Safe & Empowered
+              </span>
+            </div>
+          </Link>
+
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex items-center gap-8">
+            <Link to="/" className="text-sm font-semibold text-slate-600 hover:text-brand-600 transition-colors">
+              Home
+            </Link>
+            <Link to="/modules" className="text-sm font-semibold text-slate-600 hover:text-brand-600 transition-colors">
+              Safety Modules
+            </Link>
+            <Link to="/about" className="text-sm font-semibold text-slate-600 hover:text-brand-600 transition-colors">
+              About Platform
+            </Link>
+            <Link to="/file-complaint" className="text-sm font-semibold text-slate-600 hover:text-brand-600 transition-colors">
+              Confidential Report
+            </Link>
+            <Link
+              to="/helpline"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-rose-600 bg-rose-50 px-3 py-1.5 rounded-full border border-rose-200 hover:bg-rose-100 transition-colors"
+            >
+              <PhoneCall className="w-3.5 h-3.5" />
+              Emergency 1098
+            </Link>
+          </nav>
+
+          {/* User / Auth CTA */}
+          <div className="hidden md:flex items-center gap-3">
+            {isAuthenticated ? (
+              <div className="flex items-center gap-3">
+                <Button
+                  variant="primary"
+                  size="sm"
+                  onClick={() => navigate(getDashboardRoute(user.role))}
+                  icon={User}
+                >
+                  My Dashboard
+                </Button>
+                <Button variant="ghost" size="sm" onClick={logout}>
+                  Sign Out
+                </Button>
+              </div>
+            ) : (
+              <div className="flex items-center gap-3">
+                <Link to="/login">
+                  <Button variant="ghost" size="sm">
+                    Sign In
+                  </Button>
+                </Link>
+                <Link to="/register">
+                  <Button variant="primary" size="sm">
+                    Get Started Free
+                  </Button>
+                </Link>
+              </div>
+            )}
+          </div>
+
+          {/* Mobile menu button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 text-slate-600 hover:text-slate-900 rounded-lg"
+          >
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
+
+        {/* Mobile menu dropdown */}
+        {mobileMenuOpen && (
+          <div className="md:hidden py-4 border-t border-slate-100 flex flex-col gap-3">
+            <Link
+              to="/"
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-3 py-2 text-base font-semibold text-slate-700 hover:bg-slate-50 rounded-lg"
+            >
+              Home
+            </Link>
+            <Link
+              to="/modules"
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-3 py-2 text-base font-semibold text-slate-700 hover:bg-slate-50 rounded-lg"
+            >
+              Safety Modules
+            </Link>
+            <Link
+              to="/file-complaint"
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-3 py-2 text-base font-semibold text-slate-700 hover:bg-slate-50 rounded-lg"
+            >
+              Confidential Report
+            </Link>
+            <Link
+              to="/helpline"
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-3 py-2 text-base font-semibold text-rose-600 bg-rose-50 rounded-lg"
+            >
+              Emergency Helplines (1098 / 112)
+            </Link>
+            <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">
+              {isAuthenticated ? (
+                <>
+                  <Button
+                    variant="primary"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      navigate(getDashboardRoute(user.role));
+                    }}
+                  >
+                    Go to Dashboard
+                  </Button>
+                  <Button variant="outline" onClick={logout}>
+                    Sign Out
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
+                    <Button variant="outline" className="w-full">
+                      Sign In
+                    </Button>
+                  </Link>
+                  <Link to="/register" onClick={() => setMobileMenuOpen(false)}>
+                    <Button variant="primary" className="w-full">
+                      Get Started Free
+                    </Button>
+                  </Link>
+                </>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    </header>
+  );
+};
