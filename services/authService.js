@@ -147,7 +147,7 @@ const updateProfile = async (userId, updates) => {
     throw error;
   }
 
-  const allowedFields = ['full_name', 'phone', 'avatar_url'];
+  const allowedFields = ['full_name', 'phone', 'avatar_url', 'age_group', 'bio', 'preferences'];
   for (const field of allowedFields) {
     if (updates[field] !== undefined) {
       store.users[userIndex][field] = updates[field];

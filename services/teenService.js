@@ -119,9 +119,29 @@ const updateProgress = async (userId, { module_id, status = 'in_progress', score
   return progressRecord;
 };
 
+const getScenarios = async (ageGroup = null) => {
+  if (!ageGroup || ageGroup === 'all') {
+    return store.scenarios;
+  }
+  return store.scenarios.filter(s => s.target_age_group === ageGroup || s.target_age_group === 'all');
+};
+
+const getScenarioById = async (id) => {
+  const scenario = store.scenarios.find(s => s.id === id);
+  if (!scenario) {
+    const error = new Error('Scenario not found');
+    error.statusCode = 404;
+    error.code = 'SCENARIO_NOT_FOUND';
+    throw error;
+  }
+  return scenario;
+};
+
 module.exports = {
   getModules,
   getModuleById,
   getProgress,
   updateProgress,
+  getScenarios,
+  getScenarioById,
 };

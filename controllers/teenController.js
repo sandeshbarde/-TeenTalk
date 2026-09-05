@@ -39,9 +39,29 @@ const updateProgress = async (req, res, next) => {
   }
 };
 
+const getScenarios = async (req, res, next) => {
+  try {
+    const list = await teenService.getScenarios(req.query.age_group);
+    return successResponse(res, list, 'Scenarios retrieved successfully');
+  } catch (err) {
+    next(err);
+  }
+};
+
+const getScenarioById = async (req, res, next) => {
+  try {
+    const scenario = await teenService.getScenarioById(req.params.id);
+    return successResponse(res, scenario, 'Scenario details retrieved');
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   getModules,
   getModuleById,
   getProgress,
   updateProgress,
+  getScenarios,
+  getScenarioById,
 };
