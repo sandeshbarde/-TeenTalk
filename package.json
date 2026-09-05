@@ -1,0 +1,25 @@
+{
+  "name": "teentalk-platform",
+  "version": "1.0.0",
+  "description": "TeenTalk - Full-Stack Safety Awareness, Confidential Incident Reporting and Guidance Platform",
+  "main": "backend/server.js",
+  "scripts": {
+    "install:all": "npm --prefix backend install && npm --prefix frontend install",
+    "build:frontend": "npm --prefix frontend install && npm --prefix frontend run build",
+    "build": "npm --prefix backend install && npm --prefix frontend install && npm --prefix frontend run build",
+    "start": "node backend/server.js",
+    "test": "npm --prefix backend test"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "teen-safety",
+    "pocso",
+    "posh",
+    "confidential-reporting",
+    "full-stack"
+  ],
+  "author": "Team TeenTalk (Payal, Tejas, Nisha, Harshada)",
+  "license": "MIT"
+}
