@@ -60,8 +60,15 @@ app.use(errorHandler);
 
 // Serve static frontend if built
 const fs = require('fs');
-const frontendDist = path.join(__dirname, '../frontend/dist');
-if (fs.existsSync(frontendDist)) {
+const possibleFrontendPaths = [
+  path.join(__dirname, '../frontend/dist'),
+  path.join(__dirname, 'frontend/dist'),
+  path.join(process.cwd(), 'frontend/dist'),
+  path.join(process.cwd(), 'dist'),
+];
+const frontendDist = possibleFrontendPaths.find((p) => fs.existsSync(p));
+if (frontendDist) {
+  console.log(`📦 Serving static frontend from: ${frontendDist}`);
   app.use(express.static(frontendDist));
   app.get('*', (req, res, next) => {
     if (req.originalUrl.startsWith('/api')) {
