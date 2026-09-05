@@ -58,6 +58,19 @@ app.use('/api', routes);
 // Centralized Error Handling Middleware
 app.use(errorHandler);
 
+// Serve static frontend if built
+const fs = require('fs');
+const frontendDist = path.join(__dirname, '../frontend/dist');
+if (fs.existsSync(frontendDist)) {
+  app.use(express.static(frontendDist));
+  app.get('*', (req, res, next) => {
+    if (req.originalUrl.startsWith('/api')) {
+      return next();
+    }
+    res.sendFile(path.join(frontendDist, 'index.html'));
+  });
+}
+
 // 404 Route Catch-All
 app.use('*', (req, res) => {
   res.status(404).json({
