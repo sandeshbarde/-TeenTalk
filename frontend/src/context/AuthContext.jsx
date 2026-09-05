@@ -80,6 +80,20 @@ export const AuthProvider = ({ children }) => {
     return ROLE_DASHBOARD_ROUTES[role] || '/dashboard/teen';
   };
 
+  const updateUser = async (updates) => {
+    try {
+      const res = await apiClient.patch('/auth/profile', updates);
+      if (res.success && res.data) {
+        setUser(res.data);
+        showToast('Profile updated successfully', 'success');
+        return res.data;
+      }
+    } catch (err) {
+      showToast(err.message || 'Failed to update profile', 'error');
+      throw err;
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -89,6 +103,7 @@ export const AuthProvider = ({ children }) => {
         login,
         register,
         logout,
+        updateUser,
         getDashboardRoute,
         isAuthenticated: !!user,
       }}

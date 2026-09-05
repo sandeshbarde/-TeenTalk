@@ -17,6 +17,8 @@ import {
   HelpCircle,
   BarChart3,
   LogOut,
+  Settings,
+  User,
 } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import { ROLES, ROLE_LABELS } from '../../constants';
@@ -32,6 +34,7 @@ export const Sidebar = ({ isOpen, onClose }) => {
         return [
           { to: '/dashboard/teen', label: 'Overview', icon: Home },
           { to: '/dashboard/teen/modules', label: 'Safety Modules', icon: BookOpen },
+          { to: '/dashboard/teen/stories', label: 'Stories & Decisions', icon: Sparkles },
           { to: '/dashboard/teen/quizzes', label: 'Quizzes & Tests', icon: HelpCircle },
           { to: '/dashboard/teen/ai-chat', label: 'AI Safety Buddy', icon: Sparkles },
           { to: '/dashboard/teen/mood', label: 'Mood Tracker', icon: Smile },
@@ -142,6 +145,40 @@ export const Sidebar = ({ isOpen, onClose }) => {
               </NavLink>
             );
           })}
+
+          <div className="pt-4 mt-4 border-t border-slate-800 space-y-1">
+            <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500 px-3 mb-1">
+              Account & Privacy
+            </div>
+            <NavLink
+              to="/dashboard/profile-setup"
+              onClick={onClose}
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs font-medium transition-all ${
+                  isActive
+                    ? 'bg-lavender-700 text-white font-semibold'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                }`
+              }
+            >
+              <User className="w-4 h-4 shrink-0" />
+              <span>Age & Profile Setup</span>
+            </NavLink>
+            <NavLink
+              to="/dashboard/settings"
+              onClick={onClose}
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs font-medium transition-all ${
+                  isActive
+                    ? 'bg-lavender-700 text-white font-semibold'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                }`
+              }
+            >
+              <Settings className="w-4 h-4 shrink-0" />
+              <span>Privacy & Security</span>
+            </NavLink>
+          </div>
         </div>
 
         {/* User Card & Logout Footer */}

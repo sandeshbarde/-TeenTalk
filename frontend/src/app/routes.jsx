@@ -8,18 +8,32 @@ import { DashboardLayout } from '../components/layout/DashboardLayout';
 import { ProtectedRoute } from '../components/common/ProtectedRoute';
 import { RoleGuard } from '../components/common/RoleGuard';
 
-// Public Pages
+// Public & Info Pages
 import { LandingPage } from '../pages/public/LandingPage';
 import { AboutPage } from '../pages/public/AboutPage';
+import { HowItWorksPage } from '../pages/public/HowItWorksPage';
+import { SafetyResourcesPage } from '../pages/public/SafetyResourcesPage';
+import { ContactPage } from '../pages/public/ContactPage';
+import { PrivacyPolicyPage } from '../pages/public/PrivacyPolicyPage';
+import { TermsPage } from '../pages/public/TermsPage';
 import { EmergencyHelplinePage } from '../pages/public/EmergencyHelplinePage';
+
+// Auth & Onboarding Pages
 import { LoginPage } from '../pages/auth/LoginPage';
 import { RegisterPage } from '../pages/auth/RegisterPage';
+import { ForgotPasswordPage } from '../pages/auth/ForgotPasswordPage';
+import { WelcomeExperiencePage } from '../pages/auth/WelcomeExperiencePage';
+import { ProfileSetupPage } from '../pages/auth/ProfileSetupPage';
+import { AccountSettingsPage } from '../pages/auth/AccountSettingsPage';
 
-// Shared / Learning Pages
+// Shared / Learning / Support Pages
 import { SafetyModulesPage } from '../pages/teen/SafetyModulesPage';
 import { ModuleDetailPage } from '../pages/teen/ModuleDetailPage';
+import { StoryPlayerPage } from '../pages/learning/StoryPlayerPage';
 import { FileComplaintPage } from '../pages/employee/FileComplaintPage';
 import { TrackComplaintPage } from '../pages/employee/TrackComplaintPage';
+import { GetSupportPage } from '../pages/support/GetSupportPage';
+import { CaseDetailPage } from '../pages/support/CaseDetailPage';
 
 // Dashboards
 import { TeenDashboard } from '../pages/teen/TeenDashboard';
@@ -58,13 +72,29 @@ export const AppRoutes = () => {
       <Route element={<PublicLayout />}>
         <Route path="/" element={<LandingPage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/how-it-works" element={<HowItWorksPage />} />
+        <Route path="/resources" element={<SafetyResourcesPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/privacy" element={<PrivacyPolicyPage />} />
+        <Route path="/terms" element={<TermsPage />} />
         <Route path="/helpline" element={<EmergencyHelplinePage />} />
+
+        {/* Learning & Support */}
         <Route path="/modules" element={<SafetyModulesPage />} />
         <Route path="/modules/:id" element={<ModuleDetailPage />} />
+        <Route path="/stories" element={<StoryPlayerPage />} />
+        <Route path="/support" element={<GetSupportPage />} />
         <Route path="/file-complaint" element={<FileComplaintPage />} />
         <Route path="/track-complaint" element={<TrackComplaintPage />} />
+        <Route path="/cases/:id" element={<CaseDetailPage />} />
+        <Route path="/complaints/:id" element={<CaseDetailPage />} />
+
+        {/* Auth & Onboarding */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/welcome" element={<WelcomeExperiencePage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/profile-setup" element={<ProfileSetupPage />} />
       </Route>
 
       {/* Protected Dashboard Routes */}
@@ -98,6 +128,14 @@ export const AppRoutes = () => {
           element={
             <RoleGuard allowedRoles={['teen']}>
               <ModuleDetailPage />
+            </RoleGuard>
+          }
+        />
+        <Route
+          path="teen/stories"
+          element={
+            <RoleGuard allowedRoles={['teen']}>
+              <StoryPlayerPage />
             </RoleGuard>
           }
         />
@@ -281,6 +319,11 @@ export const AppRoutes = () => {
             </RoleGuard>
           }
         />
+
+        {/* Universal User Settings & Case Inspection */}
+        <Route path="settings" element={<AccountSettingsPage />} />
+        <Route path="profile-setup" element={<ProfileSetupPage />} />
+        <Route path="cases/:id" element={<CaseDetailPage />} />
       </Route>
 
       {/* Catch-all */}

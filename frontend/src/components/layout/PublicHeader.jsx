@@ -29,22 +29,28 @@ export const PublicHeader = () => {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
-            <Link to="/" className="text-sm font-semibold text-slate-600 hover:text-brand-600 transition-colors">
+          <nav className="hidden lg:flex items-center gap-6">
+            <Link to="/" className="text-sm font-semibold text-slate-600 hover:text-lavender-700 transition-colors">
               Home
             </Link>
-            <Link to="/modules" className="text-sm font-semibold text-slate-600 hover:text-brand-600 transition-colors">
-              Safety Modules
+            <Link to="/how-it-works" className="text-sm font-semibold text-slate-600 hover:text-lavender-700 transition-colors">
+              How It Works
             </Link>
-            <Link to="/about" className="text-sm font-semibold text-slate-600 hover:text-brand-600 transition-colors">
-              About Platform
+            <Link to="/modules" className="text-sm font-semibold text-slate-600 hover:text-lavender-700 transition-colors">
+              Modules
             </Link>
-            <Link to="/file-complaint" className="text-sm font-semibold text-slate-600 hover:text-brand-600 transition-colors">
-              Confidential Report
+            <Link to="/stories" className="text-sm font-semibold text-slate-600 hover:text-lavender-700 transition-colors">
+              Stories
+            </Link>
+            <Link to="/resources" className="text-sm font-semibold text-slate-600 hover:text-lavender-700 transition-colors">
+              Resources
+            </Link>
+            <Link to="/support" className="text-sm font-semibold text-slate-600 hover:text-lavender-700 transition-colors">
+              Support
             </Link>
             <Link
               to="/helpline"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-rose-600 bg-rose-50 px-3 py-1.5 rounded-full border border-rose-200 hover:bg-rose-100 transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-warmrose-700 bg-warmrose-50 px-3 py-1.5 rounded-full border border-warmrose-200 hover:bg-warmrose-100 transition-colors"
             >
               <PhoneCall className="w-3.5 h-3.5" />
               Emergency 1098
@@ -103,11 +109,39 @@ export const PublicHeader = () => {
               Home
             </Link>
             <Link
+              to="/how-it-works"
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-3 py-2 text-base font-semibold text-slate-700 hover:bg-slate-50 rounded-lg"
+            >
+              How It Works
+            </Link>
+            <Link
               to="/modules"
               onClick={() => setMobileMenuOpen(false)}
               className="px-3 py-2 text-base font-semibold text-slate-700 hover:bg-slate-50 rounded-lg"
             >
               Safety Modules
+            </Link>
+            <Link
+              to="/stories"
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-3 py-2 text-base font-semibold text-slate-700 hover:bg-slate-50 rounded-lg"
+            >
+              Stories & Decisions
+            </Link>
+            <Link
+              to="/resources"
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-3 py-2 text-base font-semibold text-slate-700 hover:bg-slate-50 rounded-lg"
+            >
+              Safety Resources
+            </Link>
+            <Link
+              to="/support"
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-3 py-2 text-base font-semibold text-slate-700 hover:bg-slate-50 rounded-lg"
+            >
+              Support & Care
             </Link>
             <Link
               to="/file-complaint"
@@ -119,7 +153,7 @@ export const PublicHeader = () => {
             <Link
               to="/helpline"
               onClick={() => setMobileMenuOpen(false)}
-              className="px-3 py-2 text-base font-semibold text-rose-600 bg-rose-50 rounded-lg"
+              className="px-3 py-2 text-base font-semibold text-warmrose-700 bg-warmrose-50 rounded-lg"
             >
               Emergency Helplines (1098 / 112)
             </Link>
